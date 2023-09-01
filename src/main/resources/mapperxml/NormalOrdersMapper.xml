@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.blockengine.ftcloudmessage.mapper.NormalOrdersMapper">
+  <resultMap id="BaseResultMap" type="cn.blockengine.ftcloudmessage.entity.NormalOrders">
+    <!--@mbg.generated-->
+    <!--@Table normal_orders-->
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="delete" jdbcType="BOOLEAN" property="delete" />
+    <result column="message_content" jdbcType="LONGVARCHAR" property="messageContent" />
+    <result column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="mobile" jdbcType="LONGVARCHAR" property="mobile" />
+    <result column="send_time" jdbcType="TIMESTAMP" property="sendTime" />
+    <result column="public" jdbcType="BOOLEAN" property="public" />
+    <result column="send_flag" jdbcType="BIGINT" property="sendFlag" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, create_time, update_time, `delete`, message_content, user_id, mobile, send_time, 
+    `public`, send_flag
+  </sql>
+
+</mapper>

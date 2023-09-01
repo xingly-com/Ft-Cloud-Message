@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.blockengine.ftcloudmessage.mapper.UsersMapper">
+  <resultMap id="BaseResultMap" type="cn.blockengine.ftcloudmessage.entity.Users">
+    <!--@mbg.generated-->
+    <!--@Table users-->
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="delete" jdbcType="BOOLEAN" property="delete" />
+    <result column="avatar" jdbcType="LONGVARCHAR" property="avatar" />
+    <result column="nike_name" jdbcType="LONGVARCHAR" property="nikeName" />
+    <result column="sex" jdbcType="BIGINT" property="sex" />
+    <result column="mobile" jdbcType="LONGVARCHAR" property="mobile" />
+    <result column="o_mark" jdbcType="BIGINT" property="oMark" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, create_time, update_time, `delete`, avatar, nike_name, sex, mobile, o_mark
+  </sql>
+
+</mapper>

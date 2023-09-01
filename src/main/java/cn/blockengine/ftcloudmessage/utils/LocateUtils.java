@@ -1,6 +1,8 @@
 package cn.blockengine.ftcloudmessage.utils;
 
-import org.apache.commons.lang3.StringUtils;
+
+
+import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
 

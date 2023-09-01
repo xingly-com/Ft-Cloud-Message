@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.blockengine.ftcloudmessage.mapper.PostOrdersMapper">
+  <resultMap id="BaseResultMap" type="cn.blockengine.ftcloudmessage.entity.PostOrders">
+    <!--@mbg.generated-->
+    <!--@Table post_orders-->
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="delete" jdbcType="BOOLEAN" property="delete" />
+    <result column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="user_address_id" jdbcType="BIGINT" property="userAddressId" />
+    <result column="envelope" jdbcType="LONGVARCHAR" property="envelope" />
+    <result column="stationery" jdbcType="LONGVARCHAR" property="stationery" />
+    <result column="content" jdbcType="LONGVARCHAR" property="content" />
+    <result column="send_time" jdbcType="TIMESTAMP" property="sendTime" />
+    <result column="send_flag" jdbcType="BIGINT" property="sendFlag" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, create_time, update_time, `delete`, user_id, user_address_id, envelope, stationery, 
+    content, send_time, send_flag
+  </sql>
+
+</mapper>
