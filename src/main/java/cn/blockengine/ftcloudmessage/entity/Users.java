@@ -13,27 +13,19 @@ public class Users implements Serializable {
 
     private Long id;
 
-
     private Date createTime;
-
 
     private Date updateTime;
 
-
     private Boolean delete;
-
 
     private String avatar;
 
-
     private String nikeName;
-
 
     private Long sex;
 
-
     private String mobile;
-
 
     private Long oMark;
 

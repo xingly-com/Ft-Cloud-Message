@@ -28,9 +28,7 @@ public class PlanGoods implements Serializable {
 
     private String description;
 
-
     private String tip;
-
 
     private String price;
 
