@@ -68,8 +68,6 @@ public class UserController {
     public AjaxResult usAddress (HttpServletRequest request, PageInfo pageInfo) {
         return usersService.usAddress(request, pageInfo);
     }
-
-
 }
 
 
