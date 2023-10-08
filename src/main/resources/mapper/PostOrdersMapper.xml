@@ -22,4 +22,11 @@
     content, send_time, send_flag
   </sql>
 
+  <select id="selectListByUserId" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select
+    <include refid="Base_Column_List" />
+    from post_orders
+    where user_id = #{userId} and `delete` = 0
+    </select>
 </mapper>

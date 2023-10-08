@@ -11,5 +11,5 @@ import cn.blockengine.ftcloudmessage.mapper.PostOrdersMapper;
 public interface PostOrdersService{
 
 
-    AjaxResult add(HttpServletRequest request, PostOrders orders);
+    Boolean add(HttpServletRequest request, PostOrders orders);
 }

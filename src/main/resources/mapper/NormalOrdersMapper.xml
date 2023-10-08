@@ -21,4 +21,20 @@
     `public`, send_flag
   </sql>
 
+  <select id="selectListByUserId" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select
+    <include refid="Base_Column_List" />
+    from normal_orders
+    where user_id = #{userId}
+    </select>
+
+  <select id="selectListByMobile" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select
+    <include refid="Base_Column_List"/>
+    from normal_orders
+    where mobile = #{mobile}
+  </select>
+
 </mapper>

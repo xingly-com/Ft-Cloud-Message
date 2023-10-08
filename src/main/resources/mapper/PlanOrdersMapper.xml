@@ -24,4 +24,11 @@
     send_time, last_days, price, `source`, send_flag
   </sql>
 
+  <select id="selectListByUserId" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select
+    <include refid="Base_Column_List" />
+    from plan_orders
+    where user_id = #{userId}
+    </select>
 </mapper>

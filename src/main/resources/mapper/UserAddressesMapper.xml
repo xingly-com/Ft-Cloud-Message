@@ -22,4 +22,12 @@
     address, user_id
   </sql>
 
+  <select id="selectListByUserId" resultMap="BaseResultMap">
+      <!--@mbg.generated-->
+      select
+      <include refid="Base_Column_List"/>
+      from user_addresses
+      where user_id = #{userId}
+        and `delete` = 0
+  </select>
 </mapper>

@@ -8,11 +8,13 @@ import javax.servlet.http.HttpServletRequest;
 import cn.blockengine.ftcloudmessage.mapper.PlanOrdersMapper;
 import cn.blockengine.ftcloudmessage.entity.PlanOrders;
 
+import java.util.List;
+
 public interface PlanOrdersService{
 
-    AjaxResult getGoodsList(HttpServletRequest request);
+    List<PlanOrders> goodsList(HttpServletRequest request);
 
-    AjaxResult getGoodsDetail(HttpServletRequest request, String goodId);
+    PlanOrders goodsDetail(HttpServletRequest request, String goodId);
 
-    AjaxResult add(HttpServletRequest request, PlanOrders orders);
+    Boolean add(HttpServletRequest request, PlanOrders orders);
 }

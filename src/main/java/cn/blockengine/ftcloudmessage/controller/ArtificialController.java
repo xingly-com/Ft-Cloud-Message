@@ -25,7 +25,7 @@ public class ArtificialController {
     @PostMapping("add")
     @ApiOperation("添加")
     public AjaxResult add (HttpServletRequest request, @RequestBody ArtificialOrders orders) {
-        return artificialOrdersService.add(request, orders);
+        return AjaxResult.success(artificialOrdersService.add(request, orders));
     }
 
 }

@@ -26,7 +26,7 @@ public class PostController {
     @PostMapping("add")
     @ApiOperation("添加")
     public AjaxResult add (HttpServletRequest request, @RequestBody PostOrders orders) {
-        return postOrdersService.add(request, orders);
+        return AjaxResult.success(postOrdersService.add(request, orders));
     }
 }
 

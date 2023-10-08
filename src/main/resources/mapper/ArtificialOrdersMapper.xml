@@ -22,4 +22,11 @@
     send_time, remark, send_flag
   </sql>
 
+  <select id="selectListByUserId" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select
+    <include refid="Base_Column_List" />
+    from artificial_orders
+    where user_id = #{userId} and `delete` = 0
+    </select>
 </mapper>

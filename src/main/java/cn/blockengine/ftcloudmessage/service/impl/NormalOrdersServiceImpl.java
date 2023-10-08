@@ -1,32 +1,26 @@
 package cn.blockengine.ftcloudmessage.service.impl;
 
-import cn.blockengine.ftcloudmessage.component.AjaxResult;
 import cn.blockengine.ftcloudmessage.entity.NormalOrders;
 import cn.blockengine.ftcloudmessage.mapper.NormalOrdersMapper;
 import cn.blockengine.ftcloudmessage.service.NormalOrdersService;
-import cn.blockengine.ftcloudmessage.utils.JwtUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 @Service
-public class NormalOrdersServiceImpl implements NormalOrdersService {
+public class NormalOrdersServiceImpl extends BaseService implements NormalOrdersService {
 
     @Resource
     private NormalOrdersMapper normalOrdersMapper;
 
     @Override
-    public AjaxResult add(HttpServletRequest request, NormalOrders orders) {
-        String userId = JwtUtils.getUserIdByJwt(request);
-        if (StringUtils.isEmpty(userId)) {
-            return AjaxResult.noAuth();
-        }
+    public Boolean add(HttpServletRequest request, NormalOrders orders) {
+//        String userId = getUserId(request);
 
         // todo 这里需要判断用户是否支付, 不然被抓包后, 可以直接调用接口, 造成损失
 
-        normalOrdersMapper.insert(orders);
-        return AjaxResult.ok();
+        return normalOrdersMapper.insert(orders) > 0;
+//        return AjaxResult.ok();
     }
 }

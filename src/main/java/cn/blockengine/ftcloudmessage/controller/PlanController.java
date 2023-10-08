@@ -2,6 +2,7 @@ package cn.blockengine.ftcloudmessage.controller;
 
 import cn.blockengine.ftcloudmessage.component.AjaxResult;
 import cn.blockengine.ftcloudmessage.entity.PlanOrders;
+import cn.blockengine.ftcloudmessage.page.TableDataInfo;
 import cn.blockengine.ftcloudmessage.service.PlanOrdersService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -16,26 +17,27 @@ import javax.servlet.http.HttpServletRequest;
 @RestController
 @RequestMapping("/plan")
 @Api(tags = "[小程序] 计划模块")
-public class PlanController {
+public class PlanController extends BaseController {
 
     @Resource
     private PlanOrdersService planOrdersService;
 
     @ApiOperation("商品列表")
     @GetMapping("getGoodsList")
-    public AjaxResult goodsList (HttpServletRequest request) {
-        return planOrdersService.getGoodsList(request);
+    public TableDataInfo goodsList (HttpServletRequest request) {
+        startPage();
+        return getDataTable(planOrdersService.goodsList(request));
     }
 
     @ApiOperation("商品详情")
     @GetMapping("getGoodsDetail")
     public AjaxResult goodsDetail (HttpServletRequest request, String goodId) {
-        return planOrdersService.getGoodsDetail(request, goodId);
+        return AjaxResult.success(planOrdersService.goodsDetail(request, goodId));
     }
 
     @ApiOperation("添加")
     @PostMapping("add")
     public AjaxResult add (HttpServletRequest request, PlanOrders orders) {
-        return planOrdersService.add(request, orders);
+        return AjaxResult.success(planOrdersService.add(request, orders));
     }
 }

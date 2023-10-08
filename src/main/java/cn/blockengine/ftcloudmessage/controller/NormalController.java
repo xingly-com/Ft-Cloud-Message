@@ -26,7 +26,7 @@ public class NormalController {
     @PostMapping("add")
     @ApiOperation("添加")
     public AjaxResult add (HttpServletRequest request, @RequestBody NormalOrders orders) {
-        return normalOrdersService.add(request, orders);
+        return AjaxResult.success(normalOrdersService.add(request, orders));
     }
 
 }

@@ -1,30 +1,31 @@
 package cn.blockengine.ftcloudmessage.service;
 
-import cn.blockengine.ftcloudmessage.component.AjaxResult;
-import cn.blockengine.ftcloudmessage.component.PageInfo;
-import org.springframework.stereotype.Service;
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
+import cn.blockengine.ftcloudmessage.entity.*;
+import cn.blockengine.ftcloudmessage.request.UserRequest;
+import cn.blockengine.ftcloudmessage.response.UserResponse;
 
-import cn.blockengine.ftcloudmessage.entity.Users;
-import cn.blockengine.ftcloudmessage.mapper.UsersMapper;
+import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 public interface UsersService{
 
-    AjaxResult login(Users user);
+//    AjaxResult login(Users user);
 
-    AjaxResult usMessage(HttpServletRequest request, PageInfo pageInfo);
+    List<NormalOrders> usMessage(HttpServletRequest request);
 
-    AjaxResult us(HttpServletRequest request);
+    UserResponse us(HttpServletRequest request);
 
-    AjaxResult getMessage(HttpServletRequest request, PageInfo pageInfo);
+    List<NormalOrders> getMessage(HttpServletRequest request);
 
+    List<PlanOrders> usPlan(HttpServletRequest request);
 
-    AjaxResult usPlan(HttpServletRequest request, PageInfo pageInfo);
+    List<ArtificialOrders> usArtificial(HttpServletRequest request);
 
-    AjaxResult usArtificial(HttpServletRequest request, PageInfo pageInfo);
+    List<PostOrders> usPost(HttpServletRequest request);
 
-    AjaxResult usPost(HttpServletRequest request, PageInfo pageInfo);
+    List<UserAddresses> usAddress(HttpServletRequest request);
 
-    AjaxResult usAddress(HttpServletRequest request, PageInfo pageInfo);
+    UserResponse loginUser(UserRequest request);
+
+    UserResponse openIdLogin(UserRequest request);
 }

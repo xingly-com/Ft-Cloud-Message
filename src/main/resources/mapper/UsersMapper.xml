@@ -13,10 +13,38 @@
     <result column="sex" jdbcType="BIGINT" property="sex" />
     <result column="mobile" jdbcType="LONGVARCHAR" property="mobile" />
     <result column="o_mark" jdbcType="BIGINT" property="oMark" />
+    <result column="open_id" jdbcType="VARCHAR" property="openId" />
   </resultMap>
+
   <sql id="Base_Column_List">
     <!--@mbg.generated-->
-    id, create_time, update_time, `delete`, avatar, nike_name, sex, mobile, o_mark
+    id,
+    avatar,
+    nike_name,
+    sex,
+    mobile,
+    o_mark,
+    open_id,
+    `delete`,
+    create_time,
+    update_time
   </sql>
 
+  <select id="getUserByOpenId" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select
+    <include refid="Base_Column_List"/>
+    from users
+    where open_id = #{openId,jdbcType=VARCHAR}
+      and `delete` = 0
+  </select>
+
+  <select id="getUserByUserId" resultType="cn.blockengine.ftcloudmessage.response.UserResponse">
+    <!--@mbg.generated-->
+    select
+    <include refid="Base_Column_List"/>
+    from users
+    where id = #{userId,jdbcType=BIGINT}
+      and `delete` = 0
+  </select>
 </mapper>
