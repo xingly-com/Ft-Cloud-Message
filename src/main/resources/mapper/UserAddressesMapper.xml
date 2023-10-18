@@ -7,7 +7,7 @@
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
-    <result column="delete" jdbcType="BOOLEAN" property="delete" />
+    <result column="delete" jdbcType="BOOLEAN" property="deleted" />
     <result column="user_name" jdbcType="LONGVARCHAR" property="userName" />
     <result column="mobile" jdbcType="LONGVARCHAR" property="mobile" />
     <result column="province" jdbcType="LONGVARCHAR" property="province" />
@@ -15,11 +15,23 @@
     <result column="area" jdbcType="LONGVARCHAR" property="area" />
     <result column="address" jdbcType="LONGVARCHAR" property="address" />
     <result column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="is_default" javaType="boolean" property="isDefault"/>
   </resultMap>
+
   <sql id="Base_Column_List">
-    <!--@mbg.generated-->
-    id, create_time, update_time, `delete`, user_name, mobile, province, city, area, 
-    address, user_id
+      <!--@mbg.generated-->
+      id,
+      create_time,
+      update_time,
+      `delete`,
+      user_name,
+      mobile,
+      province,
+      city,
+      area,
+      address,
+      user_id,
+      is_default
   </sql>
 
   <select id="selectListByUserId" resultMap="BaseResultMap">
@@ -30,4 +42,178 @@
       where user_id = #{userId}
         and `delete` = 0
   </select>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select
+    <include refid="Base_Column_List" />
+    from user_addresses
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    <!--@mbg.generated-->
+    delete from user_addresses
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="cn.blockengine.ftcloudmessage.entity.UserAddresses" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into user_addresses (create_time, update_time, `delete`,
+    user_name, mobile, province,
+    city, area, address,
+    user_id)
+    values (#{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{deleted,jdbcType=BOOLEAN},
+    #{userName,jdbcType=LONGVARCHAR}, #{mobile,jdbcType=LONGVARCHAR}, #{province,jdbcType=LONGVARCHAR},
+    #{city,jdbcType=LONGVARCHAR}, #{area,jdbcType=LONGVARCHAR}, #{address,jdbcType=LONGVARCHAR},
+    #{userId,jdbcType=BIGINT})
+  </insert>
+
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="cn.blockengine.ftcloudmessage.entity.UserAddresses" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into user_addresses
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="deleted != null">
+        `delete`,
+      </if>
+      <if test="userName != null and userName != ''">
+        user_name,
+      </if>
+      <if test="mobile != null and mobile != ''">
+        mobile,
+      </if>
+      <if test="province != null and province != ''">
+        province,
+      </if>
+      <if test="city != null and city != ''">
+        city,
+      </if>
+      <if test="area != null and area != ''">
+        area,
+      </if>
+      <if test="address != null and address != ''">
+        address,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleted != null">
+        #{deleted,jdbcType=BOOLEAN},
+      </if>
+      <if test="userName != null and userName != ''">
+        #{userName,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="mobile != null and mobile != ''">
+        #{mobile,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="province != null and province != ''">
+        #{province,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="city != null and city != ''">
+        #{city,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="area != null and area != ''">
+        #{area,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="address != null and address != ''">
+        #{address,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.blockengine.ftcloudmessage.entity.UserAddresses">
+    <!--@mbg.generated-->
+    update user_addresses
+    <set>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleted != null">
+        `delete` = #{deleted,jdbcType=BOOLEAN},
+      </if>
+      <if test="userName != null and userName != ''">
+        user_name = #{userName,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="mobile != null and mobile != ''">
+        mobile = #{mobile,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="province != null and province != ''">
+        province = #{province,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="city != null and city != ''">
+        city = #{city,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="area != null and area != ''">
+        area = #{area,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="address != null and address != ''">
+        address = #{address,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <update id="updateByPrimaryKey" parameterType="cn.blockengine.ftcloudmessage.entity.UserAddresses">
+    <!--@mbg.generated-->
+    update user_addresses
+    set create_time = #{createTime,jdbcType=TIMESTAMP},
+    update_time = #{updateTime,jdbcType=TIMESTAMP},
+    `delete` = #{deleted,jdbcType=BOOLEAN},
+    user_name = #{userName,jdbcType=LONGVARCHAR},
+    mobile = #{mobile,jdbcType=LONGVARCHAR},
+    province = #{province,jdbcType=LONGVARCHAR},
+    city = #{city,jdbcType=LONGVARCHAR},
+    area = #{area,jdbcType=LONGVARCHAR},
+    address = #{address,jdbcType=LONGVARCHAR},
+    user_id = #{userId,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <delete id="deleteAddressById">
+    update user_addresses set `delete` = 1 where id = #{id}
+  </delete>
+
+  <select id="selectAddressesByUserId" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from user_addresses
+    where user_id = #{userId}
+      and `delete` = 0
+  </select>
+
+  <update id="updateDefaultAddressById">
+    update user_addresses
+    set is_default = 1
+    where id = #{id}
+  </update>
+
+  <update id="updateNoDefaultAddressByIds">
+    update user_addresses
+    set is_default = 0 where `delete` = 0
+    and id in
+    <foreach collection="ids" item="key" index="index" open="(" close=")" separator=",">
+      #{key}
+    </foreach>
+  </update>
 </mapper>

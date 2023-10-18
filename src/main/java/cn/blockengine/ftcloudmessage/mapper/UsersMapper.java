@@ -10,5 +10,5 @@ public interface UsersMapper extends BaseMapper<Users> {
 
     Users getUserByOpenId(String openId);
 
-    UserResponse getUserByUserId(String userId);
+    UserResponse getUserByUserId(Long userId);
 }

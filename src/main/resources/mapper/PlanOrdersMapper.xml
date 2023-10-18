@@ -1,34 +1,210 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.blockengine.ftcloudmessage.mapper.PlanOrdersMapper">
-  <resultMap id="BaseResultMap" type="cn.blockengine.ftcloudmessage.entity.PlanOrders">
-    <!--@mbg.generated-->
-    <!--@Table plan_orders-->
-    <id column="id" jdbcType="BIGINT" property="id" />
-    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
-    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
-    <result column="delete" jdbcType="BOOLEAN" property="delete" />
-    <result column="plan_name" jdbcType="LONGVARCHAR" property="planName" />
-    <result column="plan_goods_id" jdbcType="BIGINT" property="planGoodsId" />
-    <result column="user_id" jdbcType="BIGINT" property="userId" />
-    <result column="mobile" jdbcType="LONGVARCHAR" property="mobile" />
-    <result column="send_time" jdbcType="TIMESTAMP" property="sendTime" />
-    <result column="last_days" jdbcType="BIGINT" property="lastDays" />
-    <result column="price" jdbcType="DOUBLE" property="price" />
-    <result column="source" jdbcType="LONGVARCHAR" property="source" />
-    <result column="send_flag" jdbcType="BIGINT" property="sendFlag" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    <!--@mbg.generated-->
-    id, create_time, update_time, `delete`, plan_name, plan_goods_id, user_id, mobile, 
-    send_time, last_days, price, `source`, send_flag
-  </sql>
+    <resultMap id="BaseResultMap" type="cn.blockengine.ftcloudmessage.entity.PlanOrders">
+        <!--@mbg.generated-->
+        <!--@Table plan_orders-->
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+        <result column="delete" jdbcType="BOOLEAN" property="deleted"/>
+        <result column="plan_name" jdbcType="LONGVARCHAR" property="planName"/>
+        <result column="plan_goods_id" jdbcType="BIGINT" property="planGoodsId"/>
+        <result column="user_id" jdbcType="BIGINT" property="userId"/>
+        <result column="mobile" jdbcType="LONGVARCHAR" property="mobile"/>
+        <result column="send_time" jdbcType="TIMESTAMP" property="sendTime"/>
+        <result column="last_days" jdbcType="BIGINT" property="lastDays"/>
+        <result column="price" jdbcType="DOUBLE" property="price"/>
+        <result column="source" jdbcType="LONGVARCHAR" property="source"/>
+        <result column="send_flag" jdbcType="BIGINT" property="sendFlag"/>
+    </resultMap>
 
-  <select id="selectListByUserId" resultMap="BaseResultMap">
-    <!--@mbg.generated-->
-    select
-    <include refid="Base_Column_List" />
-    from plan_orders
-    where user_id = #{userId}
+    <resultMap id="BasePlanOrderResponse" type="cn.blockengine.ftcloudmessage.response.PlanOrderResponse" extends="BaseResultMap">
+
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        <!--@mbg.generated-->
+        id,
+        create_time,
+        update_time,
+        `delete`,
+        plan_name,
+        plan_goods_id,
+        user_id,
+        mobile,
+        send_time,
+        last_days,
+        price,
+        `source`,
+        send_flag
+    </sql>
+
+    <select id="selectListByUserId" resultMap="BasePlanOrderResponse">
+        <!--@mbg.generated-->
+        select
+        <include refid="Base_Column_List"/>
+        from plan_orders
+        where user_id = #{userId}
+    </select>
+
+    <select id="selectList" resultMap="BasePlanOrderResponse">
+        <!--@mbg.generated-->
+        select
+        <include refid="Base_Column_List"/>
+        from plan_orders
+        where `delete` = 0
+        <if test="plan.planName != null and plan.planName != ''">
+            and plan_name like concat('%', #{plan.planName}, '%')
+        </if>
+        <if test="plan.mobile != null and plan.mobile != ''">
+            and mobile like concat('%', #{plan.mobile}, '%')
+        </if>
+        <if test="plan.sendFlag != null">
+            and send_flag = #{plan.sendFlag}
+        </if>
+        <if test="plan.startTime != null and plan.startTime != '' and plan.endTime != null and plan.endTime != ''">
+            and send_time between #{plan.startTime} and #{plan.endTime}
+        </if>
+        <if test="plan.price != null">
+            and price = #{plan.price}
+        </if>
+        order by create_time desc
+    </select>
+
+    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="cn.blockengine.ftcloudmessage.entity.PlanOrders"
+            useGeneratedKeys="true">
+        <!--@mbg.generated-->
+        insert into plan_orders
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            create_time,
+            update_time,
+            `delete`,
+            <if test="planName != null and planName != ''">
+                plan_name,
+            </if>
+            <if test="planGoodsId != null">
+                plan_goods_id,
+            </if>
+            <if test="userId != null">
+                user_id,
+            </if>
+            <if test="mobile != null and mobile != ''">
+                mobile,
+            </if>
+            <if test="sendTime != null">
+                send_time,
+            </if>
+            <if test="lastDays != null">
+                last_days,
+            </if>
+            <if test="price != null">
+                price,
+            </if>
+            <if test="source != null and source != ''">
+                `source`,
+            </if>
+            <if test="sendFlag != null">
+                send_flag,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            now(),
+            now(),
+            0,
+            <if test="planName != null and planName != ''">
+                #{planName,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="planGoodsId != null">
+                #{planGoodsId,jdbcType=BIGINT},
+            </if>
+            <if test="userId != null">
+                #{userId,jdbcType=BIGINT},
+            </if>
+            <if test="mobile != null and mobile != ''">
+                #{mobile,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="sendTime != null">
+                #{sendTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="lastDays != null">
+                #{lastDays,jdbcType=BIGINT},
+            </if>
+            <if test="price != null">
+                #{price,jdbcType=DOUBLE},
+            </if>
+            <if test="source != null and source != ''">
+                #{source,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="sendFlag != null">
+                #{sendFlag,jdbcType=BIGINT},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="cn.blockengine.ftcloudmessage.entity.PlanOrders">
+        <!--@mbg.generated-->
+        update plan_orders
+        <set>
+            update_time = now(),
+            <if test="planName != null and planName != ''">
+                plan_name = #{planName,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="planGoodsId != null">
+                plan_goods_id = #{planGoodsId,jdbcType=BIGINT},
+            </if>
+            <if test="userId != null">
+                user_id = #{userId,jdbcType=BIGINT},
+            </if>
+            <if test="mobile != null and mobile != ''">
+                mobile = #{mobile,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="sendTime != null">
+                send_time = #{sendTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="lastDays != null">
+                last_days = #{lastDays,jdbcType=BIGINT},
+            </if>
+            <if test="price != null">
+                price = #{price,jdbcType=DOUBLE},
+            </if>
+            <if test="source != null and source != ''">
+                `source` = #{source,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="sendFlag != null">
+                send_flag = #{sendFlag,jdbcType=BIGINT},
+            </if>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+
+    <update id="updateByPrimaryKey" parameterType="cn.blockengine.ftcloudmessage.entity.PlanOrders">
+        <!--@mbg.generated-->
+        update plan_orders
+        set create_time   = #{createTime,jdbcType=TIMESTAMP},
+            update_time   = #{updateTime,jdbcType=TIMESTAMP},
+            `delete`      = #{delete,jdbcType=BOOLEAN},
+            plan_name     = #{planName,jdbcType=LONGVARCHAR},
+            plan_goods_id = #{planGoodsId,jdbcType=BIGINT},
+            user_id       = #{userId,jdbcType=BIGINT},
+            mobile        = #{mobile,jdbcType=LONGVARCHAR},
+            send_time     = #{sendTime,jdbcType=TIMESTAMP},
+            last_days     = #{lastDays,jdbcType=BIGINT},
+            price         = #{price,jdbcType=DOUBLE},
+            `source`      = #{source,jdbcType=LONGVARCHAR},
+            send_flag     = #{sendFlag,jdbcType=BIGINT}
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+
+    <delete id="deleteByPrimaryKey">
+        update plan_orders set `delete` = 1 , update_time = now() where id = #{id,jdbcType=BIGINT}
+    </delete>
+
+    <select id="selectByPrimaryKey" resultMap="BasePlanOrderResponse">
+        <!--@mbg.generated-->
+        select
+        <include refid="Base_Column_List"/>
+        from plan_orders
+        where id = #{id,jdbcType=BIGINT}
     </select>
 </mapper>

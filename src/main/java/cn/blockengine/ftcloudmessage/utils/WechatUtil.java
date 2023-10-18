@@ -37,7 +37,7 @@ public class WechatUtil {
     public static String[] getOpenId(String code) {
         String appId = configService.getCacheValue("wechat_appid");
         String secret = configService.getCacheValue("wechat_secret");
-        logger.info("【小程序获取openId】: code={}, appId={}, secret={}", code, appId, secret);
+        logger.info("【小程序获取openId】: code={}", code);
         String url = String.format("https://api.weixin.qq.com/sns/jscode2session?appid=%s&secret=%s&js_code=%s&grant_type=authorization_code",
                 appId, secret, code);
         HttpGet httpGet = new HttpGet(url);

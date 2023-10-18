@@ -2,6 +2,8 @@ package cn.blockengine.ftcloudmessage.service.impl;
 
 import cn.blockengine.ftcloudmessage.entity.PlanOrders;
 import cn.blockengine.ftcloudmessage.mapper.PlanOrdersMapper;
+import cn.blockengine.ftcloudmessage.request.PlanOrderRequest;
+import cn.blockengine.ftcloudmessage.response.PlanOrderResponse;
 import cn.blockengine.ftcloudmessage.service.PlanOrdersService;
 import org.springframework.stereotype.Service;
 
@@ -16,27 +18,40 @@ public class PlanOrdersServiceImpl extends BaseService implements PlanOrdersServ
     private PlanOrdersMapper planOrdersMapper;
 
     @Override
-    public List<PlanOrders> goodsList(HttpServletRequest request) {
-//        String userId = getUserId(request);
+    public List<PlanOrderResponse> usPlan(HttpServletRequest request) {
+        Long userId = getUserId();
+        return planOrdersMapper.selectListByUserId(userId);
+    }
 
+    @Override
+    public List<PlanOrderResponse> planOrderList(PlanOrderRequest request) {
+//        String userId = getUserId(request);
 //        return AjaxResult.ok().data("list", planOrdersMapper.selectList(null));
-        return planOrdersMapper.selectList(null);
+        return planOrdersMapper.selectList(request);
     }
 
     @Override
-    public PlanOrders goodsDetail(HttpServletRequest request, String goodId) {
+    public PlanOrderResponse detail(Long goodId) {
 //        String userId = getUserId(request);
-
-        return planOrdersMapper.selectById(goodId);
+        return planOrdersMapper.selectByPrimaryKey(goodId);
     }
 
     @Override
-    public Boolean add(HttpServletRequest request, PlanOrders orders) {
-        String userId = getUserId(request);
-
+    public Boolean add(PlanOrderRequest orders) {
+        Long userId = getUserId();
+        orders.setUserId(userId);
         // todo 这里需要判断用户是否支付, 不然被抓包后, 可以直接调用接口, 造成损失
+        return planOrdersMapper.insertSelective(orders)>0;
+    }
 
-        return planOrdersMapper.insert(orders)>0;
-//        return AjaxResult.ok();
+    @Override
+    public Boolean update(PlanOrderRequest request) {
+        //check
+        return planOrdersMapper.updateByPrimaryKeySelective(request)>0;
+    }
+
+    @Override
+    public Boolean delete(Long id) {
+        return planOrdersMapper.deleteByPrimaryKey(id)>0;
     }
 }

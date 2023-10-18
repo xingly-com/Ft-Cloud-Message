@@ -1,6 +1,8 @@
 package cn.blockengine.ftcloudmessage.service;
 
 import cn.blockengine.ftcloudmessage.component.AjaxResult;
+import cn.blockengine.ftcloudmessage.request.PlanOrderRequest;
+import cn.blockengine.ftcloudmessage.response.PlanOrderResponse;
 import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -12,9 +14,15 @@ import java.util.List;
 
 public interface PlanOrdersService{
 
-    List<PlanOrders> goodsList(HttpServletRequest request);
+    List<PlanOrderResponse> usPlan(HttpServletRequest request);
 
-    PlanOrders goodsDetail(HttpServletRequest request, String goodId);
+    List<PlanOrderResponse> planOrderList(PlanOrderRequest request);
 
-    Boolean add(HttpServletRequest request, PlanOrders orders);
+    PlanOrderResponse detail(Long goodId);
+
+    Boolean add(PlanOrderRequest orders);
+
+    Boolean update(PlanOrderRequest request);
+
+    Boolean delete(Long id);
 }

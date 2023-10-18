@@ -1,18 +1,14 @@
 package cn.blockengine.ftcloudmessage.controller;
 
 import cn.blockengine.ftcloudmessage.component.AjaxResult;
-import cn.blockengine.ftcloudmessage.entity.PlanOrders;
 import cn.blockengine.ftcloudmessage.page.TableDataInfo;
-import cn.blockengine.ftcloudmessage.service.PlanOrdersService;
+import cn.blockengine.ftcloudmessage.request.PlanRequest;
+import cn.blockengine.ftcloudmessage.service.PlanGoodsService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 
 @RestController
 @RequestMapping("/plan")
@@ -20,24 +16,36 @@ import javax.servlet.http.HttpServletRequest;
 public class PlanController extends BaseController {
 
     @Resource
-    private PlanOrdersService planOrdersService;
+    private PlanGoodsService service;
 
-    @ApiOperation("商品列表")
-    @GetMapping("getGoodsList")
-    public TableDataInfo goodsList (HttpServletRequest request) {
+    @ApiOperation("计划列表")
+    @GetMapping("/page")
+    public TableDataInfo goodsList (PlanRequest request) {
         startPage();
-        return getDataTable(planOrdersService.goodsList(request));
+        return getDataTable(service.goodsList(request));
     }
 
-    @ApiOperation("商品详情")
-    @GetMapping("getGoodsDetail")
-    public AjaxResult goodsDetail (HttpServletRequest request, String goodId) {
-        return AjaxResult.success(planOrdersService.goodsDetail(request, goodId));
+    @ApiOperation("计划详情")
+    @GetMapping("/detail")
+    public AjaxResult goodsDetail (String goodId) {
+        return AjaxResult.success(service.goodsDetail(goodId));
     }
 
     @ApiOperation("添加")
     @PostMapping("add")
-    public AjaxResult add (HttpServletRequest request, PlanOrders orders) {
-        return AjaxResult.success(planOrdersService.add(request, orders));
+    public AjaxResult add (@RequestBody PlanRequest request) {
+        return AjaxResult.success(service.add(request));
+    }
+
+    @ApiOperation("修改")
+    @PostMapping("update")
+    public AjaxResult update (@RequestBody PlanRequest request) {
+        return AjaxResult.success(service.update(request));
+    }
+
+    @ApiOperation("删除")
+    @DeleteMapping("{id}")
+    public AjaxResult delete (@PathVariable Long id) {
+        return AjaxResult.success(service.delete(id));
     }
 }

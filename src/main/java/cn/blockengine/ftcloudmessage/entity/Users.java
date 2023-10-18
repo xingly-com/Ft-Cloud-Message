@@ -15,6 +15,7 @@ import java.util.Date;
 @ToString
 public class Users implements Serializable {
 
+//    @TableId(type = IdType.INPUT)
     private Long id;
 
     private Date createTime;

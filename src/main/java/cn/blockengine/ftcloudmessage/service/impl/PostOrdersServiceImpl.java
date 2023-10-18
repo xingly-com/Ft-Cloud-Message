@@ -15,7 +15,7 @@ public class PostOrdersServiceImpl extends BaseService implements PostOrdersServ
 
     @Override
     public Boolean add(HttpServletRequest request, PostOrders orders) {
-        String userId = getUserId(request);
+        Long userId = getUserId();
 
         // todo 这里需要判断用户是否支付, 不然被抓包后, 可以直接调用接口, 造成损失
 

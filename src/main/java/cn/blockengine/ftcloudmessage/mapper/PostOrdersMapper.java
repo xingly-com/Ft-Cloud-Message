@@ -10,5 +10,5 @@ import java.util.List;
 @Mapper
 public interface PostOrdersMapper extends BaseMapper<PostOrders> {
 
-    List<PostOrders> selectListByUserId(String userId);
+    List<PostOrders> selectListByUserId(Long userId);
 }

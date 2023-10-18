@@ -8,5 +8,5 @@ import java.util.List;
 
 @Mapper
 public interface ArtificialOrdersMapper extends BaseMapper<ArtificialOrders> {
-    List<ArtificialOrders> selectListByUserId(String userId);
+    List<ArtificialOrders> selectListByUserId(Long userId);
 }

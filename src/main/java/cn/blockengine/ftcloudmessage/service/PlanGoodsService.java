@@ -1,10 +1,19 @@
 package cn.blockengine.ftcloudmessage.service;
 
-import org.springframework.stereotype.Service;
-import javax.annotation.Resource;
-import cn.blockengine.ftcloudmessage.mapper.PlanGoodsMapper;
-import cn.blockengine.ftcloudmessage.entity.PlanGoods;
+import cn.blockengine.ftcloudmessage.request.PlanRequest;
+import cn.blockengine.ftcloudmessage.response.PlanGoodsResponse;
+
+import java.util.List;
 
 public interface PlanGoodsService{
 
+    List<PlanGoodsResponse> goodsList(PlanRequest request);
+
+    PlanGoodsResponse goodsDetail(String goodId);
+
+    Boolean add(PlanRequest request);
+
+    Boolean update(PlanRequest request);
+
+    Boolean delete(Long id);
 }

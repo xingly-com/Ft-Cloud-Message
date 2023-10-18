@@ -19,6 +19,6 @@ public class UserRequest extends Users {
     @ApiModelProperty(value = "新密码")
     private String newPassword;
 
-    @ApiModelProperty(value = "验证码")
+    @ApiModelProperty(value = "wx随机码")
     private String code;
 }

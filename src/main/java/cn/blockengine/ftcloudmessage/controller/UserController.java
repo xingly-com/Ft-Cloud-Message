@@ -19,12 +19,6 @@ public class UserController extends  BaseController{
     @Resource
     private UsersService usersService;
 
-//    @PostMapping("/login")
-//    @ApiOperation("微信登陆")
-//    public AjaxResult login (@RequestBody Users user) {
-//        return usersService.login(user);
-//    }
-
     @PostMapping("/login")
     @ApiOperation("登陆")
     public AjaxResult login(@RequestBody UserRequest request) {
@@ -39,7 +33,7 @@ public class UserController extends  BaseController{
         return AjaxResult.success(usersService.openIdLogin(request));
     }
 
-    @GetMapping("/usMessage")
+    @GetMapping("/usMessage/page")
     @ApiOperation("我的短信")
     public TableDataInfo usMessage (HttpServletRequest request) {
         startPage();
@@ -52,39 +46,31 @@ public class UserController extends  BaseController{
         return AjaxResult.success(usersService.us(request));
     }
 
-    @GetMapping("/getMessage")
+    @GetMapping("/getMessage/page")
     @ApiOperation("我的收信")
-    public AjaxResult getMessage (HttpServletRequest request) {
+    public TableDataInfo getMessage (HttpServletRequest request) {
         startPage();
-        return AjaxResult.success(usersService.getMessage(request));
+        return getDataTable(usersService.getMessage(request));
     }
 
-    @GetMapping("/usPlan")
-    @ApiOperation("我的计划")
-    public TableDataInfo usPlan (HttpServletRequest request) {
-        startPage();
-        return getDataTable(usersService.usPlan(request));
-    }
-
-    @GetMapping("/usArtificial")
+    @GetMapping("/usArtificial/page")
     @ApiOperation("我的传话")
     public TableDataInfo usArtificial (HttpServletRequest request) {
         startPage();
         return getDataTable(usersService.usArtificial(request));
     }
 
-    @GetMapping("/usPost")
+    @GetMapping("/usPost/page")
     @ApiOperation("我的邮寄")
     public TableDataInfo usPost (HttpServletRequest request) {
         startPage();
         return getDataTable(usersService.usPost(request));
     }
 
-    @GetMapping("/usAddress")
-    @ApiOperation("我的地址")
-    public TableDataInfo usAddress (HttpServletRequest request) {
-        startPage();
-        return getDataTable(usersService.usAddress(request));
+    @PostMapping(value = "/getPhone")
+    public AjaxResult getPhone(@RequestBody UserRequest request) {
+        System.out.println("传入的参数为:" + request);
+        return AjaxResult.success(usersService.getPhone(request));
     }
 }
 

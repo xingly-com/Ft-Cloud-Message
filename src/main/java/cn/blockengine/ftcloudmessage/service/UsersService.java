@@ -9,23 +9,19 @@ import java.util.List;
 
 public interface UsersService{
 
-//    AjaxResult login(Users user);
-
     List<NormalOrders> usMessage(HttpServletRequest request);
 
     UserResponse us(HttpServletRequest request);
 
     List<NormalOrders> getMessage(HttpServletRequest request);
 
-    List<PlanOrders> usPlan(HttpServletRequest request);
-
     List<ArtificialOrders> usArtificial(HttpServletRequest request);
 
     List<PostOrders> usPost(HttpServletRequest request);
 
-    List<UserAddresses> usAddress(HttpServletRequest request);
-
     UserResponse loginUser(UserRequest request);
 
     UserResponse openIdLogin(UserRequest request);
+
+    String getPhone(UserRequest request);
 }

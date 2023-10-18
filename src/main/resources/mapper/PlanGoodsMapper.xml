@@ -1,21 +1,146 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.blockengine.ftcloudmessage.mapper.PlanGoodsMapper">
-  <resultMap id="BaseResultMap" type="cn.blockengine.ftcloudmessage.entity.PlanGoods">
-    <!--@mbg.generated-->
-    <!--@Table plan_goods-->
-    <id column="id" jdbcType="BIGINT" property="id" />
-    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
-    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
-    <result column="delete" jdbcType="BOOLEAN" property="delete" />
-    <result column="title" jdbcType="LONGVARCHAR" property="title" />
-    <result column="description" jdbcType="LONGVARCHAR" property="description" />
-    <result column="tip" jdbcType="LONGVARCHAR" property="tip" />
-    <result column="price" jdbcType="LONGVARCHAR" property="price" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    <!--@mbg.generated-->
-    id, create_time, update_time, `delete`, title, description, tip, price
-  </sql>
+    <resultMap id="BaseResultMap" type="cn.blockengine.ftcloudmessage.entity.PlanGoods">
+        <!--@mbg.generated-->
+        <!--@Table plan_goods-->
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+        <result column="delete" jdbcType="BOOLEAN" property="deleted"/>
+        <result column="title" jdbcType="LONGVARCHAR" property="title"/>
+        <result column="description" jdbcType="LONGVARCHAR" property="description"/>
+        <result column="tip" jdbcType="LONGVARCHAR" property="tip"/>
+        <result column="price" jdbcType="LONGVARCHAR" property="price"/>
+    </resultMap>
 
+    <resultMap id="BaseGoodsResponse" type="cn.blockengine.ftcloudmessage.response.PlanGoodsResponse"
+               extends="BaseResultMap">
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        <!--@mbg.generated-->
+        id,
+        create_time,
+        update_time,
+        `delete`,
+        title,
+        description,
+        tip,
+        price
+    </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseGoodsResponse">
+        <!--@mbg.generated-->
+        select
+        <include refid="Base_Column_List"/>
+        from plan_goods
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        <!--@mbg.generated-->
+        update plan_goods
+        set `delete`   = true,
+            update_time=now()
+        where id = #{id,jdbcType=BIGINT}
+    </delete>
+
+
+    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="cn.blockengine.ftcloudmessage.entity.PlanGoods"
+            useGeneratedKeys="true">
+        <!--@mbg.generated-->
+        insert into plan_goods
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                create_time,
+                update_time,
+                `delete`,
+            <if test="title != null and title != ''">
+                title,
+            </if>
+            <if test="description != null and description != ''">
+                description,
+            </if>
+            <if test="tip != null and tip != ''">
+                tip,
+            </if>
+            <if test="price != null and price != ''">
+                price,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            now(),
+            now(),
+           false,
+            <if test="title != null and title != ''">
+                #{title,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="description != null and description != ''">
+                #{description,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="tip != null and tip != ''">
+                #{tip,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="price != null and price != ''">
+                #{price,jdbcType=LONGVARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="cn.blockengine.ftcloudmessage.entity.PlanGoods">
+        <!--@mbg.generated-->
+        update plan_goods
+        <set>
+
+                update_time =now(),
+
+            <if test="title != null and title != ''">
+                title = #{title,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="description != null and description != ''">
+                description = #{description,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="tip != null and tip != ''">
+                tip = #{tip,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="price != null and price != ''">
+                price = #{price,jdbcType=LONGVARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+
+    <update id="updateByPrimaryKey" parameterType="cn.blockengine.ftcloudmessage.entity.PlanGoods">
+        <!--@mbg.generated-->
+        update plan_goods
+        set create_time = #{createTime,jdbcType=TIMESTAMP},
+            update_time = #{updateTime,jdbcType=TIMESTAMP},
+            `delete`    = #{deleted,jdbcType=BOOLEAN},
+            title       = #{title,jdbcType=LONGVARCHAR},
+            description = #{description,jdbcType=LONGVARCHAR},
+            tip         = #{tip,jdbcType=LONGVARCHAR},
+            price       = #{price,jdbcType=LONGVARCHAR}
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+
+    <select id="goodsList" resultMap="BaseGoodsResponse">
+        <!--@mbg.generated-->
+        select
+        <include refid="Base_Column_List"/>
+        from plan_goods
+        where `delete` = false
+        <if test="plan.title != null and plan.title != ''">
+            and title like concat('%',#{plan.title},'%')
+        </if>
+        <if test="plan.description != null and plan.description != ''">
+            and description like concat('%',#{plan.description},'%')
+        </if>
+        <if test="plan.tip != null and plan.tip != ''">
+            and tip like concat('%',#{plan.tip},'%')
+        </if>
+        <if test="plan.price != null and plan.price != ''">
+            and price like concat('%',#{plan.price},'%')
+        </if>
+        order by id desc
+    </select>
 </mapper>

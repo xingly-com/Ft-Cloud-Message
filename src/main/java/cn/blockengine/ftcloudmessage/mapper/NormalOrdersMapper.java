@@ -10,7 +10,7 @@ import java.util.List;
 @Mapper
 public interface NormalOrdersMapper extends BaseMapper<NormalOrders> {
 
-    List<NormalOrders> selectListByUserId(String userId);
+    List<NormalOrders> selectListByUserId(Long userId);
 
     List<NormalOrders> selectListByMobile(String mobile);
 }
