@@ -1,11 +1,11 @@
 package cn.blockengine.ftcloudmessage.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
-import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.ToString;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -16,15 +16,8 @@ import java.util.Date;
 @ApiModel(description="普通短信订单表")
 @Data
 @ToString
-public class NormalOrders implements Serializable {
-
-    private Long id;
-
-    private Date createTime;
-
-    private Date updateTime;
-
-    private Boolean delete;
+@EqualsAndHashCode(callSuper = true)
+public class NormalOrders extends BaseEntity implements Serializable {
 
     private String messageContent;
 
@@ -32,6 +25,8 @@ public class NormalOrders implements Serializable {
 
     private String mobile;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date sendTime;
 
     private Boolean open;

@@ -7,7 +7,7 @@
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
-    <result column="delete" jdbcType="BOOLEAN" property="delete" />
+    <result column="delete" jdbcType="BOOLEAN" property="deleted" />
     <result column="social_account" jdbcType="LONGVARCHAR" property="socialAccount" />
     <result column="user_id" jdbcType="BIGINT" property="userId" />
     <result column="content" jdbcType="LONGVARCHAR" property="content" />
@@ -16,17 +16,143 @@
     <result column="remark" jdbcType="LONGVARCHAR" property="remark" />
     <result column="send_flag" jdbcType="BIGINT" property="sendFlag" />
   </resultMap>
+
+  <resultMap id="BaseArtificialResponse" type="cn.blockengine.ftcloudmessage.response.ArtificialOrderResponse" extends="BaseResultMap">
+  </resultMap>
+
   <sql id="Base_Column_List">
     <!--@mbg.generated-->
     id, create_time, update_time, `delete`, social_account, user_id, content, appellation, 
     send_time, remark, send_flag
   </sql>
 
-  <select id="selectListByUserId" resultMap="BaseResultMap">
-    <!--@mbg.generated-->
-    select
-    <include refid="Base_Column_List" />
-    from artificial_orders
-    where user_id = #{userId} and `delete` = 0
+  <select id="selectList" resultMap="BaseArtificialResponse">
+      <!--@mbg.generated-->
+      select
+      <include refid="Base_Column_List"/>
+      from artificial_orders
+      where `delete` = 0
+      <if test="request.userId != null">
+          and user_id = #{request.userId}
+      </if>
+      <if test="request.socialAccount != null">
+          and social_account = #{request.socialAccount}
+      </if>
+      <if test="request.sendFlag != null">
+          and send_flag = #{request.sendFlag}
+      </if>
+      <if test="request.content != null">
+          and content like concat('%', #{request.content}, '%')
+      </if>
+      <if test="request.appellation != null">
+          and appellation like concat('%', #{request.appellation}, '%')
+      </if>
+      <if test="request.remark != null">
+          and remark like concat('%', #{request.remark}, '%')
+      </if>
+      order by id desc
+  </select>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseArtificialResponse">
+        <!--@mbg.generated-->
+        select
+        <include refid="Base_Column_List" />
+        from artificial_orders
+        where id = #{id,jdbcType=BIGINT}
     </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        <!--@mbg.generated-->
+        update artificial_orders set `delete` = 1,update_time = now() where id = #{id,jdbcType=BIGINT}
+    </delete>
+
+    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="cn.blockengine.ftcloudmessage.entity.ArtificialOrders" useGeneratedKeys="true">
+        <!--@mbg.generated-->
+        insert into artificial_orders
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                create_time,
+                update_time,
+                `delete`,
+            <if test="socialAccount != null and socialAccount != ''">
+                social_account,
+            </if>
+            <if test="userId != null">
+                user_id,
+            </if>
+            <if test="content != null and content != ''">
+                content,
+            </if>
+            <if test="appellation != null and appellation != ''">
+                appellation,
+            </if>
+            <if test="sendTime != null">
+                send_time,
+            </if>
+            <if test="remark != null and remark != ''">
+                remark,
+            </if>
+            <if test="sendFlag != null">
+                send_flag,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                now(),
+                now(),
+                0,
+            <if test="socialAccount != null and socialAccount != ''">
+                #{socialAccount,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="userId != null">
+                #{userId,jdbcType=BIGINT},
+            </if>
+            <if test="content != null and content != ''">
+                #{content,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="appellation != null and appellation != ''">
+                #{appellation,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="sendTime != null">
+                #{sendTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="remark != null and remark != ''">
+                #{remark,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="sendFlag != null">
+                #{sendFlag,jdbcType=BIGINT},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="cn.blockengine.ftcloudmessage.entity.ArtificialOrders">
+        <!--@mbg.generated-->
+        update artificial_orders
+        <set>
+            update_time = now(),
+
+            <if test="socialAccount != null and socialAccount != ''">
+                social_account = #{socialAccount,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="userId != null">
+                user_id = #{userId,jdbcType=BIGINT},
+            </if>
+            <if test="content != null and content != ''">
+                content = #{content,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="appellation != null and appellation != ''">
+                appellation = #{appellation,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="sendTime != null">
+                send_time = #{sendTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="remark != null and remark != ''">
+                remark = #{remark,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="sendFlag != null">
+                send_flag = #{sendFlag,jdbcType=BIGINT},
+            </if>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+
+
 </mapper>

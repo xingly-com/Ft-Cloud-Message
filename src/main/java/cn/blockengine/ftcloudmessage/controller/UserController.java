@@ -20,24 +20,17 @@ public class UserController extends  BaseController{
     private UsersService usersService;
 
     @PostMapping("/login")
-    @ApiOperation("登陆")
+    @ApiOperation("code手机号登陆")
     public AjaxResult login(@RequestBody UserRequest request) {
         // 学生使用微信登陆, 所以没有密码, 直接生成token
         return AjaxResult.success(usersService.loginUser(request));
     }
 
     @PostMapping("/openId/login")
-    @ApiOperation("一键登陆")
+    @ApiOperation("openId一键登陆")
     public AjaxResult openIdLogin(@RequestBody UserRequest request) {
         // 学生使用微信登陆, 所以没有密码, 直接生成token
         return AjaxResult.success(usersService.openIdLogin(request));
-    }
-
-    @GetMapping("/usMessage/page")
-    @ApiOperation("我的短信")
-    public TableDataInfo usMessage (HttpServletRequest request) {
-        startPage();
-        return getDataTable(usersService.usMessage(request));
     }
 
     @GetMapping("/us")
@@ -46,28 +39,8 @@ public class UserController extends  BaseController{
         return AjaxResult.success(usersService.us(request));
     }
 
-    @GetMapping("/getMessage/page")
-    @ApiOperation("我的收信")
-    public TableDataInfo getMessage (HttpServletRequest request) {
-        startPage();
-        return getDataTable(usersService.getMessage(request));
-    }
-
-    @GetMapping("/usArtificial/page")
-    @ApiOperation("我的传话")
-    public TableDataInfo usArtificial (HttpServletRequest request) {
-        startPage();
-        return getDataTable(usersService.usArtificial(request));
-    }
-
-    @GetMapping("/usPost/page")
-    @ApiOperation("我的邮寄")
-    public TableDataInfo usPost (HttpServletRequest request) {
-        startPage();
-        return getDataTable(usersService.usPost(request));
-    }
-
     @PostMapping(value = "/getPhone")
+    @ApiOperation("获取手机号")
     public AjaxResult getPhone(@RequestBody UserRequest request) {
         System.out.println("传入的参数为:" + request);
         return AjaxResult.success(usersService.getPhone(request));

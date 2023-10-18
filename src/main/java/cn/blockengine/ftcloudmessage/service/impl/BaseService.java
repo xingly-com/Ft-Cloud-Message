@@ -25,14 +25,6 @@ public class BaseService {
     }
 
     private HttpServletRequest getContextRequest() {
-        return contextRequest;
-    }
-
-    ServletRequestAttributes requestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
-    HttpServletRequest contextRequest;
-
-    {
-        assert requestAttributes != null;
-        contextRequest = requestAttributes.getRequest();
+        return ((ServletRequestAttributes) (RequestContextHolder.currentRequestAttributes())).getRequest();
     }
 }

@@ -1,13 +1,7 @@
 package cn.blockengine.ftcloudmessage.service.impl;
 
-import cn.blockengine.ftcloudmessage.entity.ArtificialOrders;
-import cn.blockengine.ftcloudmessage.entity.NormalOrders;
-import cn.blockengine.ftcloudmessage.entity.PostOrders;
 import cn.blockengine.ftcloudmessage.entity.Users;
 import cn.blockengine.ftcloudmessage.exception.ServiceException;
-import cn.blockengine.ftcloudmessage.mapper.ArtificialOrdersMapper;
-import cn.blockengine.ftcloudmessage.mapper.NormalOrdersMapper;
-import cn.blockengine.ftcloudmessage.mapper.PostOrdersMapper;
 import cn.blockengine.ftcloudmessage.mapper.UsersMapper;
 import cn.blockengine.ftcloudmessage.request.UserRequest;
 import cn.blockengine.ftcloudmessage.response.UserResponse;
@@ -23,7 +17,6 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
-import java.util.List;
 
 @Service
 @Slf4j
@@ -31,15 +24,6 @@ public class UsersServiceImpl extends BaseService implements UsersService {
 
     @Resource
     private UsersMapper usersMapper;
-
-    @Resource
-    private NormalOrdersMapper normalOrdersMapper;
-
-    @Resource
-    private ArtificialOrdersMapper artificialOrdersMapper;
-
-    @Resource
-    private PostOrdersMapper postOrdersMapper;
 
     @Override
     @Transactional
@@ -101,36 +85,9 @@ public class UsersServiceImpl extends BaseService implements UsersService {
     }
 
     @Override
-    public List<NormalOrders> usMessage(HttpServletRequest request) {
-        Long userId = getUserId();
-        return normalOrdersMapper.selectListByUserId(userId);
-    }
-
-    @Override
     public UserResponse us(HttpServletRequest request) {
         Long userId = getUserId();
         return usersMapper.getUserByUserId(userId);
-    }
-
-    @Override
-    public List<NormalOrders> getMessage(HttpServletRequest request) {
-        Long userId = getUserId();
-        Users users = usersMapper.selectById(userId);
-        String mobile = users.getMobile();
-
-        return normalOrdersMapper.selectListByMobile(mobile);
-    }
-
-    @Override
-    public List<ArtificialOrders> usArtificial(HttpServletRequest request) {
-        Long userId = getUserId();
-        return artificialOrdersMapper.selectListByUserId(userId);
-    }
-
-    @Override
-    public List<PostOrders> usPost(HttpServletRequest request) {
-        Long userId = getUserId();
-        return postOrdersMapper.selectListByUserId(userId);
     }
 
     private UserResponse getUserResponse(Users user) {

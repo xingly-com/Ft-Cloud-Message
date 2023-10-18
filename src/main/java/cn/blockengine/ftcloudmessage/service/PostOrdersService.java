@@ -1,15 +1,21 @@
 package cn.blockengine.ftcloudmessage.service;
 
-import cn.blockengine.ftcloudmessage.component.AjaxResult;
-import org.springframework.stereotype.Service;
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
+import cn.blockengine.ftcloudmessage.request.PostOrderRequest;
+import cn.blockengine.ftcloudmessage.response.PostOrderResponse;
 
-import cn.blockengine.ftcloudmessage.entity.PostOrders;
-import cn.blockengine.ftcloudmessage.mapper.PostOrdersMapper;
+import java.util.List;
 
 public interface PostOrdersService{
 
+    Boolean add(PostOrderRequest orders);
 
-    Boolean add(HttpServletRequest request, PostOrders orders);
+    Boolean update(PostOrderRequest orders);
+
+    Boolean delete(Long id);
+
+    PostOrderResponse detail(Long id);
+
+    List<PostOrderResponse> list(PostOrderRequest orders);
+
+    List<PostOrderResponse> usPost(PostOrderRequest request);
 }

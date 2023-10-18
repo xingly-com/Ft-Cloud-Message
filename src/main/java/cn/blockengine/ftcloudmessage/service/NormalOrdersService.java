@@ -1,10 +1,22 @@
 package cn.blockengine.ftcloudmessage.service;
 
-import cn.blockengine.ftcloudmessage.entity.NormalOrders;
+import cn.blockengine.ftcloudmessage.request.NormalOrderRequest;
+import cn.blockengine.ftcloudmessage.response.NormalOrderResponse;
 
-import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
-public interface NormalOrdersService{
+public interface NormalOrdersService {
+    Boolean add(NormalOrderRequest orders);
 
-    Boolean add(HttpServletRequest request, NormalOrders orders);
+    Boolean update(NormalOrderRequest orders);
+
+    Boolean delete(Long id);
+
+    NormalOrderResponse detail(Long id);
+
+    List<NormalOrderResponse> normalMessageList(NormalOrderRequest orders);
+
+    List<NormalOrderResponse> getMessage(NormalOrderRequest orders);
+
+    List<NormalOrderResponse> usMessage(NormalOrderRequest request);
 }

@@ -1,10 +1,21 @@
 package cn.blockengine.ftcloudmessage.service;
 
-import cn.blockengine.ftcloudmessage.entity.ArtificialOrders;
+import cn.blockengine.ftcloudmessage.request.ArtificialOrderRequest;
+import cn.blockengine.ftcloudmessage.response.ArtificialOrderResponse;
 
-import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 public interface ArtificialOrdersService{
 
-    Boolean add(HttpServletRequest request, ArtificialOrders orders);
+    Boolean add(ArtificialOrderRequest orders);
+
+    Boolean update(ArtificialOrderRequest orders);
+
+    Boolean delete(Long id);
+
+    ArtificialOrderResponse detail(Long id);
+
+    List<ArtificialOrderResponse> list(ArtificialOrderRequest orders);
+
+    List<ArtificialOrderResponse> usArtificial(ArtificialOrderRequest orders);
 }
