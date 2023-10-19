@@ -16,7 +16,7 @@ public class BaseEntity implements Serializable
 
     private Long id;
 
-    private Boolean deleted;
+    private Boolean delete;
 
     /** 搜索值 */
     @JsonIgnore
@@ -128,10 +128,10 @@ public class BaseEntity implements Serializable
     }
 
     public Boolean getDeleted() {
-        return deleted;
+        return delete;
     }
 
     public void setDeleted(Boolean deleted) {
-        this.deleted = deleted;
+        this.delete = deleted;
     }
 }
