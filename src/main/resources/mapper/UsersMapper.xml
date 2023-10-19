@@ -7,7 +7,7 @@
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
-    <result column="delete" jdbcType="BOOLEAN" property="delete" />
+    <result column="delete" jdbcType="BOOLEAN" property="deleted" />
     <result column="avatar" jdbcType="LONGVARCHAR" property="avatar" />
     <result column="nike_name" jdbcType="LONGVARCHAR" property="nikeName" />
     <result column="sex" jdbcType="BIGINT" property="sex" />

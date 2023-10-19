@@ -70,7 +70,7 @@ public class JwtUtils {
      * 根据token获取用户id
      */
     public static String getUserIdByJwt(HttpServletRequest request) {
-        String jwtToken = request.getHeader("token");
+        String jwtToken = request.getHeader("Ft-Cloud-Message");
         if (StringUtils.isEmpty(jwtToken)) {
             return "";
         }

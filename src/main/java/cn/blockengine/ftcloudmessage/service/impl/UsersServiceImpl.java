@@ -17,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
+import java.util.UUID;
 
 @Service
 @Slf4j
@@ -49,6 +50,10 @@ public class UsersServiceImpl extends BaseService implements UsersService {
             BeanUtils.copyProperties(request, user);
             user.setOpenId(openId);
             user.setMobile(phone);
+            //默认头像
+            user.setAvatar("https://ft-water.oss-cn-nanjing.aliyuncs.com/default/87b8823e-b753-4d35-b9c9-cd81aa6d779e.jpg");
+            //随机昵称-中文
+            user.setNikeName(UUID.randomUUID().toString().split("-")[0]);
             user.setCreateTime(new Date());
             user.setUpdateTime(new Date());
 
