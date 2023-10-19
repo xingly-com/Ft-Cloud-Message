@@ -1,7 +1,6 @@
 package cn.blockengine.ftcloudmessage.controller;
 
 import cn.blockengine.ftcloudmessage.component.AjaxResult;
-import cn.blockengine.ftcloudmessage.page.TableDataInfo;
 import cn.blockengine.ftcloudmessage.request.UserRequest;
 import cn.blockengine.ftcloudmessage.service.UsersService;
 import io.swagger.annotations.Api;

@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.blockengine.ftcloudmessage.mapper.ContactsMapper">
+
+    <resultMap id="BaseResultMap" type="cn.blockengine.ftcloudmessage.entity.Contacts">
+        <!--@mbg.generated-->
+        <!--@Table contacts-->
+        <id column="id" jdbcType="BIGINT" property="id" />
+        <result column="mobile" jdbcType="VARCHAR" property="mobile" />
+        <result column="name" jdbcType="VARCHAR" property="name" />
+        <result column="user_id" jdbcType="BIGINT" property="userId" />
+        <result column="delete" jdbcType="BOOLEAN" property="deleted" />
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    </resultMap>
+
+    <resultMap id="BaseContactResponse" type="cn.blockengine.ftcloudmessage.response.ContactsResponse">
+
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        <!--@mbg.generated-->
+        id, mobile, `name`, user_id, `delete`, create_time, update_time
+    </sql>
+
+    <select id="selectList" resultMap="BaseContactResponse">
+        <!--@mbg.generated-->
+        select
+        <include refid="Base_Column_List" />
+        from contacts
+        where `delete` = false
+        <if test="contacts.userId != null">
+            and user_id = #{contacts.userId,jdbcType=BIGINT}
+        </if>
+        <if test="contacts.mobile != null and contacts.mobile != ''">
+            and mobile = #{contacts.mobile,jdbcType=VARCHAR}
+        </if>
+        <if test="contacts.name != null and contacts.name != ''">
+            and `name` = #{contacts.name,jdbcType=VARCHAR}
+        </if>
+        order by id desc
+    </select>
+
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseContactResponse">
+        <!--@mbg.generated-->
+        select
+        <include refid="Base_Column_List" />
+        from contacts
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        <!--@mbg.generated-->
+        update contacts set `delete` = true , update_time=now() where id = #{id,jdbcType=BIGINT}
+    </delete>
+
+    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="cn.blockengine.ftcloudmessage.entity.Contacts" useGeneratedKeys="true">
+        <!--@mbg.generated-->
+        insert into contacts
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="mobile != null and mobile != ''">
+                mobile,
+            </if>
+            <if test="name != null and name != ''">
+                `name`,
+            </if>
+            <if test="userId != null">
+                user_id,
+            </if>
+                `delete`,
+                create_time,
+                update_time,
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="mobile != null and mobile != ''">
+                #{mobile,jdbcType=VARCHAR},
+            </if>
+            <if test="name != null and name != ''">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="userId != null">
+                #{userId,jdbcType=BIGINT},
+            </if>
+                0,
+                now(),
+                now(),
+        </trim>
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="cn.blockengine.ftcloudmessage.entity.Contacts">
+        <!--@mbg.generated-->
+        update contacts
+        <set>
+            <if test="mobile != null and mobile != ''">
+                mobile = #{mobile,jdbcType=VARCHAR},
+            </if>
+            <if test="name != null and name != ''">
+                `name` = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="userId != null">
+                user_id = #{userId,jdbcType=BIGINT},
+            </if>
+            update_time = now(),
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+
+</mapper>
