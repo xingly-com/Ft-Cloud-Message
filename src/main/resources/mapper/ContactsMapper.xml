@@ -12,7 +12,7 @@
         <result column="mobile" jdbcType="VARCHAR" property="mobile" />
         <result column="name" jdbcType="VARCHAR" property="name" />
         <result column="user_id" jdbcType="BIGINT" property="userId" />
-        <result column="delete" jdbcType="BOOLEAN" property="deleted" />
+        <result column="delete" jdbcType="BOOLEAN" property="delete" />
         <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
         <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
     </resultMap>

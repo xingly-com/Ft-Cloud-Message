@@ -23,6 +23,4 @@ public interface PlanGoodsMapper extends BaseMapper<PlanGoodsMapper> {
     PlanGoodsResponse selectByPrimaryKey(Long id);
 
     int updateByPrimaryKeySelective(PlanGoods record);
-
-    int updateByPrimaryKey(PlanGoods record);
 }

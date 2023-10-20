@@ -7,7 +7,7 @@
         <id column="id" jdbcType="BIGINT" property="id"/>
         <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
         <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
-        <result column="delete" jdbcType="BOOLEAN" property="deleted"/>
+        <result column="delete" jdbcType="BOOLEAN" property="delete"/>
         <result column="plan_name" jdbcType="LONGVARCHAR" property="planName"/>
         <result column="plan_goods_id" jdbcType="BIGINT" property="planGoodsId"/>
         <result column="user_id" jdbcType="BIGINT" property="userId"/>
@@ -19,8 +19,8 @@
         <result column="send_flag" jdbcType="BIGINT" property="sendFlag"/>
     </resultMap>
 
-    <resultMap id="BasePlanOrderResponse" type="cn.blockengine.ftcloudmessage.response.PlanOrderResponse" extends="BaseResultMap">
-
+    <resultMap id="BasePlanOrderResponse" type="cn.blockengine.ftcloudmessage.response.PlanOrderResponse"
+               extends="BaseResultMap">
     </resultMap>
 
     <sql id="Base_Column_List">
@@ -72,7 +72,8 @@
         order by create_time desc
     </select>
 
-    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="cn.blockengine.ftcloudmessage.entity.PlanOrders"
+    <insert id="insertSelective" keyColumn="id" keyProperty="id"
+            parameterType="cn.blockengine.ftcloudmessage.entity.PlanOrders"
             useGeneratedKeys="true">
         <!--@mbg.generated-->
         insert into plan_orders
@@ -178,26 +179,11 @@
         where id = #{id,jdbcType=BIGINT}
     </update>
 
-    <update id="updateByPrimaryKey" parameterType="cn.blockengine.ftcloudmessage.entity.PlanOrders">
-        <!--@mbg.generated-->
-        update plan_orders
-        set create_time   = #{createTime,jdbcType=TIMESTAMP},
-            update_time   = #{updateTime,jdbcType=TIMESTAMP},
-            `delete`      = #{delete,jdbcType=BOOLEAN},
-            plan_name     = #{planName,jdbcType=LONGVARCHAR},
-            plan_goods_id = #{planGoodsId,jdbcType=BIGINT},
-            user_id       = #{userId,jdbcType=BIGINT},
-            mobile        = #{mobile,jdbcType=LONGVARCHAR},
-            send_time     = #{sendTime,jdbcType=TIMESTAMP},
-            last_days     = #{lastDays,jdbcType=BIGINT},
-            price         = #{price,jdbcType=DOUBLE},
-            `source`      = #{source,jdbcType=LONGVARCHAR},
-            send_flag     = #{sendFlag,jdbcType=BIGINT}
-        where id = #{id,jdbcType=BIGINT}
-    </update>
-
     <delete id="deleteByPrimaryKey">
-        update plan_orders set `delete` = 1 , update_time = now() where id = #{id,jdbcType=BIGINT}
+        update plan_orders
+        set `delete`    = 1,
+            update_time = now()
+        where id = #{id,jdbcType=BIGINT}
     </delete>
 
     <select id="selectByPrimaryKey" resultMap="BasePlanOrderResponse">
