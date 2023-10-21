@@ -24,4 +24,6 @@ public interface UserAddressesMapper extends BaseMapper<UserAddresses> {
     int updateDefaultAddressById(@Param("id")Long id);
 
     int updateNoDefaultAddressByIds(@Param("ids")List<Long> ids);
+
+    UserAddresses selectDefaultAddressByUserId(@Param("userId") Long userId);
 }

@@ -1,11 +1,12 @@
 package cn.blockengine.ftcloudmessage.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -18,37 +19,28 @@ import java.util.Date;
 @ToString
 @EqualsAndHashCode(callSuper = true)
 public class ArtificialOrders extends BaseEntity implements Serializable {
-//    @ApiModelProperty(value="")
-//    private Long id;
-//
-//    @ApiModelProperty(value="")
-//    private Date createTime;
-//
-//    @ApiModelProperty(value="")
-//    private Date updateTime;
-//
-//    @ApiModelProperty(value="")
-//    private Boolean delete;
 
-    @ApiModelProperty(value="")
+//    @ApiModelProperty(value="")
     private String socialAccount;
 
-    @ApiModelProperty(value="")
+    @ApiModelProperty(value="用户id")
     private Long userId;
 
-    @ApiModelProperty(value="")
+    @ApiModelProperty(value="内容")
     private String content;
 
-    @ApiModelProperty(value="")
+//    @ApiModelProperty(value="")
     private String appellation;
 
-    @ApiModelProperty(value="")
+    @ApiModelProperty(value="发送时间")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date sendTime;
 
-    @ApiModelProperty(value="")
+    @ApiModelProperty(value="备注")
     private String remark;
 
-    @ApiModelProperty(value="")
+    @ApiModelProperty(value="是否发送")
     private Long sendFlag;
 
     private static final long serialVersionUID = 1L;

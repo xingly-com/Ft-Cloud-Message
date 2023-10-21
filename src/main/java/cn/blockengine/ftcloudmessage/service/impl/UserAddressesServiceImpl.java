@@ -23,9 +23,6 @@ public class UserAddressesServiceImpl extends BaseService implements UserAddress
     @Resource
     private UserAddressesMapper addressMapper;
 
-//    @Resource
-//    private UsersMapper userMapper;
-
     @Override
     public List<UserAddresses> usAddress(HttpServletRequest request) {
         Long userId = getUserId();
@@ -54,7 +51,12 @@ public class UserAddressesServiceImpl extends BaseService implements UserAddress
         {
             throw new ServiceException("请选择地址",1000);
         }
-        return addressMapper.insertSelective(request) > 0;
+        boolean flag = addressMapper.insertSelective(request) > 0;
+        //校验
+        if (request.getIsDefault()!=null && request.getIsDefault()){
+            checkDefaultAddress(request.getId());
+        }
+        return flag;
     }
 
     @Override
@@ -62,6 +64,9 @@ public class UserAddressesServiceImpl extends BaseService implements UserAddress
     public Boolean updateAddress(AddressRequest request) {
         log.info("updateAddress request[{}]", request);
         //校验
+        if (request.getIsDefault()!=null && request.getIsDefault()){
+            checkDefaultAddress(request.getId());
+        }
         return updateByPrimaryKeySelective(request) > 0;
     }
 
@@ -80,19 +85,27 @@ public class UserAddressesServiceImpl extends BaseService implements UserAddress
     @Override
     @Transactional
     public Boolean updateDefaultAddress(Long id) {
-        //所有的address 该用户的
+        checkDefaultAddress(id);
+        //更新用户·默认地址
+//        userMapper.updateDefaultAddressById(getUserId(), id);
+        return addressMapper.updateDefaultAddressById(id) > 0;
+    }
+
+    @Override
+    public UserAddresses getCurrentUserDefaultAddress() {
+        return addressMapper.selectDefaultAddressByUserId(getUserId());
+    }
+
+    public int updateByPrimaryKeySelective(UserAddresses record) {
+        return addressMapper.updateByPrimaryKeySelective(record);
+    }
+
+    private void checkDefaultAddress(Long id) {
         List<UserAddresses> addresses = addressMapper.selectAddressesByUserId(getUserId());
         //修改其他为非默认地址
         addresses = addresses.stream().filter(address -> !address.getId().equals(id)).collect(Collectors.toList());
         if (CollectionUtils.isNotEmpty(addresses)) {
             addressMapper.updateNoDefaultAddressByIds(addresses.stream().map(UserAddresses::getId).collect(Collectors.toList()));
         }
-        //更新用户·默认地址
-//        userMapper.updateDefaultAddressById(getUserId(), id);
-        return addressMapper.updateDefaultAddressById(id) > 0;
-    }
-
-    public int updateByPrimaryKeySelective(UserAddresses record) {
-        return addressMapper.updateByPrimaryKeySelective(record);
     }
 }

@@ -10,7 +10,7 @@
         <result column="delete" jdbcType="BOOLEAN" property="delete"/>
         <result column="avatar" jdbcType="LONGVARCHAR" property="avatar"/>
         <result column="nike_name" jdbcType="LONGVARCHAR" property="nikeName"/>
-        <result column="sex" jdbcType="BIGINT" property="sex"/>
+        <result column="sex" jdbcType="INTEGER" property="sex"/>
         <result column="mobile" jdbcType="LONGVARCHAR" property="mobile"/>
         <result column="o_mark" jdbcType="BIGINT" property="oMark"/>
         <result column="open_id" jdbcType="VARCHAR" property="openId"/>

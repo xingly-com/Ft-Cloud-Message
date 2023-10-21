@@ -20,9 +20,9 @@ public interface PlanOrdersService{
 
     PlanOrderResponse detail(Long goodId);
 
-    Boolean add(PlanOrderRequest orders);
+    PlanOrderResponse add(PlanOrderRequest orders);
 
-    Boolean update(PlanOrderRequest request);
+    PlanOrderResponse update(PlanOrderRequest request);
 
     Boolean delete(Long id);
 }

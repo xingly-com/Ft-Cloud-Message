@@ -1,11 +1,10 @@
 package cn.blockengine.ftcloudmessage.service.impl;
 
-import cn.blockengine.ftcloudmessage.entity.Users;
 import cn.blockengine.ftcloudmessage.mapper.UsersMapper;
 import cn.blockengine.ftcloudmessage.response.UserResponse;
 import cn.blockengine.ftcloudmessage.service.PayService;
-import cn.blockengine.ftcloudmessage.service.UsersService;
 import cn.blockengine.ftcloudmessage.utils.RedisUtil;
+import cn.blockengine.ftcloudmessage.utils.StringUtils;
 import cn.blockengine.ftcloudmessage.utils.WxUtils;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.RandomUtil;
@@ -23,7 +22,6 @@ import com.wechat.pay.contrib.apache.httpclient.exception.HttpCodeException;
 import com.wechat.pay.contrib.apache.httpclient.exception.NotFoundException;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
@@ -35,6 +33,8 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.Resource;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.nio.charset.StandardCharsets;
 import java.security.*;
 import java.util.Base64;
@@ -57,8 +57,11 @@ public class PayServiceImpl extends BaseService implements PayService {
     @Transactional(rollbackFor = Exception.class)
     @SneakyThrows
     public JSONObject createPay(Long orderId, String price, String type) {
-        // 获取用户ID
+        if (StringUtils.isEmpty(price)) {
+            throw new Exception("价格不能为空");
+        }
 
+        // 获取用户ID
         Long userId = getUserId();
 
         // 获取用户
@@ -88,7 +91,7 @@ public class PayServiceImpl extends BaseService implements PayService {
                 .put("notify_url", "https://water.asugar.cn/notify")
                 .put("out_trade_no", wx_no);
         rootNode.putObject("amount")
-                .put("total", Integer.parseInt(price));
+                .put("total", (int) (Double.parseDouble(price) * 100));
         rootNode.putObject("payer")
                 .put("openid", user.getOpenId());
         objectMapper.writeValue(bos, rootNode);
@@ -105,6 +108,7 @@ public class PayServiceImpl extends BaseService implements PayService {
 
         // 记录订单, 这里只是记录生成了这笔支付, 并不知道支付状态
         // 当定时任务扫描时，先根据orderId，查出wx_no，支付成功，再决定发送
+        log.info("ft:message:payLog:" + type + ":" + orderId, wx_no);
         redisUtil.set("ft:message:payLog:" + type + ":" + orderId, wx_no + "-" + System.currentTimeMillis());
         return resData;
     }

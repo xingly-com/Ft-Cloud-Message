@@ -23,4 +23,6 @@ public interface UserAddressesService{
     UserAddresses getAddressDetail(Long id);
 
     Boolean updateDefaultAddress(Long id);
+
+    UserAddresses getCurrentUserDefaultAddress();
 }

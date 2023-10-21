@@ -4,6 +4,7 @@ import cn.blockengine.ftcloudmessage.component.AjaxResult;
 import cn.blockengine.ftcloudmessage.page.TableDataInfo;
 import cn.blockengine.ftcloudmessage.request.AddressRequest;
 import cn.blockengine.ftcloudmessage.service.UserAddressesService;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,6 +18,8 @@ import javax.servlet.http.HttpServletRequest;
  * @create 2023/10/18 07:55
  */
 @RequestMapping("/user/address")
+@RestController
+@Api(tags = "[小程序] 用户地址")
 public class AddressController extends BaseController {
 
     @Resource
@@ -57,5 +60,11 @@ public class AddressController extends BaseController {
     @ApiOperation("设置为默认地址")
     public AjaxResult updateDefaultAddress(@RequestBody AddressRequest request) {
         return AjaxResult.success(addressService.updateDefaultAddress(request.getId()));
+    }
+
+    @GetMapping("/default")
+    @ApiOperation("获取当前用户默认地址")
+    public AjaxResult getCurrentUserDefaultAddress() {
+        return AjaxResult.success(addressService.getCurrentUserDefaultAddress());
     }
 }

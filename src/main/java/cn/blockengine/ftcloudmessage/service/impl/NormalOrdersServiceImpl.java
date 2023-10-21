@@ -6,6 +6,7 @@ import cn.blockengine.ftcloudmessage.mapper.UsersMapper;
 import cn.blockengine.ftcloudmessage.request.NormalOrderRequest;
 import cn.blockengine.ftcloudmessage.response.NormalOrderResponse;
 import cn.blockengine.ftcloudmessage.service.NormalOrdersService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -21,16 +22,22 @@ public class NormalOrdersServiceImpl extends BaseService implements NormalOrders
     private UsersMapper usersMapper;
 
     @Override
-    public Boolean add(NormalOrderRequest orders) {
+    public NormalOrderResponse add(NormalOrderRequest orders) {
         Long userId = getUserId();
         // todo 这里需要判断用户是否支付, 不然被抓包后, 可以直接调用接口, 造成损失
         orders.setUserId(userId);
-        return normalOrdersMapper.insertSelective(orders) > 0;
+        normalOrdersMapper.insertSelective(orders);
+        NormalOrderResponse response = new NormalOrderResponse();
+        BeanUtils.copyProperties(orders, response);
+        return response;
     }
 
     @Override
-    public Boolean update(NormalOrderRequest orders) {
-        return normalOrdersMapper.updateByPrimaryKeySelective(orders) > 0;
+    public NormalOrderResponse update(NormalOrderRequest orders) {
+        normalOrdersMapper.updateByPrimaryKeySelective(orders);
+        NormalOrderResponse response = new NormalOrderResponse();
+        BeanUtils.copyProperties(orders, response);
+        return response;
     }
 
     @Override

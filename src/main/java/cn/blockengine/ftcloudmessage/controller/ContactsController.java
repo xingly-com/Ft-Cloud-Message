@@ -54,4 +54,10 @@ public class ContactsController extends BaseController{
     public AjaxResult detail(@PathVariable Long id) {
         return AjaxResult.success(contactsService.detail(id));
     }
+
+    @GetMapping("/list")
+    @ApiOperation("我的联系人列表")
+    public AjaxResult contactLists(ContactsRequest contact) {
+        return AjaxResult.success(contactsService.contactsList(contact));
+    }
 }

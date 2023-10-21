@@ -6,9 +6,9 @@ import cn.blockengine.ftcloudmessage.response.NormalOrderResponse;
 import java.util.List;
 
 public interface NormalOrdersService {
-    Boolean add(NormalOrderRequest orders);
+    NormalOrderResponse add(NormalOrderRequest orders);
 
-    Boolean update(NormalOrderRequest orders);
+    NormalOrderResponse update(NormalOrderRequest orders);
 
     Boolean delete(Long id);
 
