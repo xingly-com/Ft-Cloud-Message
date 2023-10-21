@@ -7,7 +7,7 @@
         <id column="id" jdbcType="BIGINT" property="id"/>
         <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
         <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
-        <result column="delete" jdbcType="BOOLEAN" property="deleted"/>
+        <result column="delete" jdbcType="BOOLEAN" property="delete"/>
         <result column="title" jdbcType="LONGVARCHAR" property="title"/>
         <result column="description" jdbcType="LONGVARCHAR" property="description"/>
         <result column="tip" jdbcType="LONGVARCHAR" property="tip"/>
@@ -107,19 +107,6 @@
                 price = #{price,jdbcType=LONGVARCHAR},
             </if>
         </set>
-        where id = #{id,jdbcType=BIGINT}
-    </update>
-
-    <update id="updateByPrimaryKey" parameterType="cn.blockengine.ftcloudmessage.entity.PlanGoods">
-        <!--@mbg.generated-->
-        update plan_goods
-        set create_time = #{createTime,jdbcType=TIMESTAMP},
-            update_time = #{updateTime,jdbcType=TIMESTAMP},
-            `delete`    = #{deleted,jdbcType=BOOLEAN},
-            title       = #{title,jdbcType=LONGVARCHAR},
-            description = #{description,jdbcType=LONGVARCHAR},
-            tip         = #{tip,jdbcType=LONGVARCHAR},
-            price       = #{price,jdbcType=LONGVARCHAR}
         where id = #{id,jdbcType=BIGINT}
     </update>
 

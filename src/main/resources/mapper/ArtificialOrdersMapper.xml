@@ -7,7 +7,7 @@
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
-    <result column="delete" jdbcType="BOOLEAN" property="deleted" />
+    <result column="delete" jdbcType="BOOLEAN" property="delete" />
     <result column="social_account" jdbcType="LONGVARCHAR" property="socialAccount" />
     <result column="user_id" jdbcType="BIGINT" property="userId" />
     <result column="content" jdbcType="LONGVARCHAR" property="content" />
@@ -153,6 +153,5 @@
         </set>
         where id = #{id,jdbcType=BIGINT}
     </update>
-
 
 </mapper>

@@ -23,7 +23,7 @@ public class BaseEntity implements Serializable
     private String searchValue;
 
     /** 创建者 */
-    private String createBy;
+//    private String createBy;
 
     /** 创建时间 */
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
@@ -31,7 +31,7 @@ public class BaseEntity implements Serializable
     private Date createTime;
 
     /** 更新者 */
-    private String updateBy;
+//    private String updateBy;
 
     /** 更新时间 */
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
@@ -39,7 +39,7 @@ public class BaseEntity implements Serializable
     private Date updateTime;
 
     /** 备注 */
-    private String remark;
+//    private String remark;
 
     /** 请求参数 */
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
@@ -55,15 +55,15 @@ public class BaseEntity implements Serializable
         this.searchValue = searchValue;
     }
 
-    public String getCreateBy()
-    {
-        return createBy;
-    }
-
-    public void setCreateBy(String createBy)
-    {
-        this.createBy = createBy;
-    }
+//    public String getCreateBy()
+//    {
+//        return createBy;
+//    }
+//
+//    public void setCreateBy(String createBy)
+//    {
+//        this.createBy = createBy;
+//    }
 
     public Date getCreateTime()
     {
@@ -75,15 +75,15 @@ public class BaseEntity implements Serializable
         this.createTime = createTime;
     }
 
-    public String getUpdateBy()
-    {
-        return updateBy;
-    }
-
-    public void setUpdateBy(String updateBy)
-    {
-        this.updateBy = updateBy;
-    }
+//    public String getUpdateBy()
+//    {
+//        return updateBy;
+//    }
+//
+//    public void setUpdateBy(String updateBy)
+//    {
+//        this.updateBy = updateBy;
+//    }
 
     public Date getUpdateTime()
     {
@@ -95,15 +95,15 @@ public class BaseEntity implements Serializable
         this.updateTime = updateTime;
     }
 
-    public String getRemark()
-    {
-        return remark;
-    }
-
-    public void setRemark(String remark)
-    {
-        this.remark = remark;
-    }
+//    public String getRemark()
+//    {
+//        return remark;
+//    }
+//
+//    public void setRemark(String remark)
+//    {
+//        this.remark = remark;
+//    }
 
     public Map<String, Object> getParams()
     {
@@ -127,11 +127,11 @@ public class BaseEntity implements Serializable
         this.id = id;
     }
 
-    public Boolean getDeleted() {
+    public Boolean getDelete() {
         return delete;
     }
 
-    public void setDeleted(Boolean deleted) {
-        this.delete = deleted;
+    public void setDelete(Boolean delete) {
+        this.delete = delete;
     }
 }

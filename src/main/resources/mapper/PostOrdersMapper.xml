@@ -7,7 +7,7 @@
         <id column="id" jdbcType="BIGINT" property="id"/>
         <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
         <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
-        <result column="delete" jdbcType="BOOLEAN" property="deleted"/>
+        <result column="delete" jdbcType="BOOLEAN" property="delete"/>
         <result column="user_id" jdbcType="BIGINT" property="userId"/>
         <result column="user_address_id" jdbcType="BIGINT" property="userAddressId"/>
         <result column="envelope" jdbcType="LONGVARCHAR" property="envelope"/>
@@ -79,7 +79,8 @@
         where id = #{id,jdbcType=BIGINT}
     </delete>
 
-    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="cn.blockengine.ftcloudmessage.entity.PostOrders"
+    <insert id="insertSelective" keyColumn="id" keyProperty="id"
+            parameterType="cn.blockengine.ftcloudmessage.entity.PostOrders"
             useGeneratedKeys="true">
         <!--@mbg.generated-->
         insert into post_orders
@@ -141,8 +142,7 @@
         <!--@mbg.generated-->
         update post_orders
         <set>
-
-                update_time = now(),
+            update_time = now(),
 
             <if test="userId != null">
                 user_id = #{userId,jdbcType=BIGINT},

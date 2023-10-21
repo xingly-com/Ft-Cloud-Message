@@ -85,18 +85,11 @@ public class BaseController
         TableDataInfo rspData = new TableDataInfo();
         rspData.setCode(HttpStatus.SUCCESS);
         rspData.setMsg("查询成功");
-        rspData.setRows(list);
-        rspData.setTotal(new PageInfo(list).getTotal());
-        return rspData;
-    }
-
-    protected TableDataInfo getDataTable(List<?> list,long total)
-    {
-        TableDataInfo rspData = new TableDataInfo();
-        rspData.setCode(HttpStatus.SUCCESS);
-        rspData.setMsg("查询成功");
-        rspData.setRows(list);
-        rspData.setTotal(total);
+        //data: { rows: [], total: 0 ，currentPage：0，maxPage：0}
+//        rspData.setRows(list);
+//        rspData.setTotal(pageInfo.getTotal());
+        PageInfo pageInfo = new PageInfo(list);
+        rspData.setData(list, pageInfo.getTotal(), pageInfo.getPageNum(), pageInfo.getPages());
         return rspData;
     }
 

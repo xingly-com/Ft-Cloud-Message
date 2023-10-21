@@ -17,8 +17,6 @@ public interface UserAddressesMapper extends BaseMapper<UserAddresses> {
 
     int updateByPrimaryKeySelective(UserAddresses record);
 
-    int updateByPrimaryKey(UserAddresses record);
-
     int deleteAddressById(@Param("id")Long id);
 
     List<UserAddresses> selectAddressesByUserId(@Param("userId")Long userId);
@@ -26,5 +24,4 @@ public interface UserAddressesMapper extends BaseMapper<UserAddresses> {
     int updateDefaultAddressById(@Param("id")Long id);
 
     int updateNoDefaultAddressByIds(@Param("ids")List<Long> ids);
-
 }
