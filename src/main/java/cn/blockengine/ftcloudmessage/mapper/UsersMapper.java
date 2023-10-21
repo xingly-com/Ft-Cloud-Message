@@ -11,4 +11,12 @@ public interface UsersMapper extends BaseMapper<Users> {
     Users getUserByOpenId(String openId);
 
     UserResponse getUserByUserId(Long userId);
+
+    void insertSelective(Users user);
+
+    void updateByPrimaryKeySelective(Users user);
+
+    void deleteByPrimaryKey(Long userId);
+
+    UserResponse selectByPrimaryKey(Long userId);
 }

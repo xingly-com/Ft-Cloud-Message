@@ -58,7 +58,7 @@ public class UsersServiceImpl extends BaseService implements UsersService {
             user.setUpdateTime(new Date());
 
 //            insertUser(user);
-            usersMapper.insert(user);
+            usersMapper.insertSelective(user);
         }
 
         if (!user.getMobile().equals(phone)) {

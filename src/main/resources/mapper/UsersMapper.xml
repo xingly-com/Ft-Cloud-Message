@@ -16,6 +16,10 @@
         <result column="open_id" jdbcType="VARCHAR" property="openId"/>
     </resultMap>
 
+    <resultMap id="BaseUserResponse" type="cn.blockengine.ftcloudmessage.response.UserResponse">
+
+    </resultMap>
+
     <sql id="Base_Column_List">
         <!--@mbg.generated-->
         id,
@@ -39,7 +43,7 @@
           and `delete` = 0
     </select>
 
-    <select id="getUserByUserId" resultType="cn.blockengine.ftcloudmessage.response.UserResponse">
+    <select id="getUserByUserId" resultMap="BaseUserResponse">
         <!--@mbg.generated-->
         select
         <include refid="Base_Column_List"/>
@@ -47,4 +51,98 @@
         where id = #{userId,jdbcType=BIGINT}
           and `delete` = 0
     </select>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseUserResponse">
+        <!--@mbg.generated-->
+        select
+        <include refid="Base_Column_List" />
+        from users
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        <!--@mbg.generated-->
+        delete from users
+        where id = #{id,jdbcType=BIGINT}
+    </delete>
+
+    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="cn.blockengine.ftcloudmessage.entity.Users" useGeneratedKeys="true">
+        <!--@mbg.generated-->
+        insert into users
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="openId != null and openId != ''">
+                open_id,
+            </if>
+            <if test="avatar != null and avatar != ''">
+                avatar,
+            </if>
+            <if test="nikeName != null and nikeName != ''">
+                nike_name,
+            </if>
+            <if test="sex != null">
+                sex,
+            </if>
+            <if test="mobile != null and mobile != ''">
+                mobile,
+            </if>
+            <if test="oMark != null">
+                o_mark,
+            </if>
+            `delete`,
+            create_time,
+            update_time,
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="openId != null and openId != ''">
+                #{openId,jdbcType=VARCHAR},
+            </if>
+            <if test="avatar != null and avatar != ''">
+                #{avatar,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="nikeName != null and nikeName != ''">
+                #{nikeName,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="sex != null">
+                #{sex,jdbcType=BIGINT},
+            </if>
+            <if test="mobile != null and mobile != ''">
+                #{mobile,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="oMark != null">
+                #{oMark,jdbcType=BIGINT},
+            </if>
+            0,
+            now(),
+            now(),
+        </trim>
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="cn.blockengine.ftcloudmessage.entity.Users">
+        <!--@mbg.generated-->
+        update users
+        <set>
+            <if test="openId != null and openId != ''">
+                open_id = #{openId,jdbcType=VARCHAR},
+            </if>
+            <if test="avatar != null and avatar != ''">
+                avatar = #{avatar,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="nikeName != null and nikeName != ''">
+                nike_name = #{nikeName,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="sex != null">
+                sex = #{sex,jdbcType=BIGINT},
+            </if>
+            <if test="mobile != null and mobile != ''">
+                mobile = #{mobile,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="oMark != null">
+                o_mark = #{oMark,jdbcType=BIGINT},
+            </if>
+
+                update_time = now(),
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+
 </mapper>
